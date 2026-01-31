@@ -209,3 +209,4 @@ class Trader():
         big = 0
         heals = [small, medium, big]
         for i in self.trader_inventory:
+            pass
