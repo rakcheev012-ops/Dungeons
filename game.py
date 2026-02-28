@@ -54,11 +54,12 @@ heal_potion_big = Heal_potion_big()
 player = Player('player_1', 100, wooden_sword, 'control', none, 100, [rotten_wood_sword])
 
 #inventory========================================
-first_trder_inventory = [steal_sword, rotten_wood_sword, baby_dragon_s_skin, heal_potion_small, heal_potion_small, heal_potion_small,
- heal_potion_medium, heal_potion_medium ,heal_potion_big]
+first_trder_inventory = [steal_sword, rotten_wood_sword, baby_dragon_s_skin, heal_potion_small,
+ heal_potion_medium, heal_potion_medium ]
 
 #trader========================================
-first_trder = Trader(first_trder_inventory, 999999999999999999999999999999)
+first_trader = Trader(first_trder_inventory, 999999999999999999999999999999, heal_potion_small, heal_potion_medium, heal_potion_big)
+first_trader.heal_potion_res()
 
 #slimes--------------------------------------------------------------------------------------------------
 small_slime = Character('small slime', 5, small_slime_weapon, 'enemy', none)
@@ -135,7 +136,7 @@ for dungen in all_dungeon:
         print(f'1.торговец\n2.инвентарь\n3.в бой!\n4.задать процент для времени ожидания')
         choose = int(input('1, 2, 3, 4? '))
         if choose == 1:
-            first_trder.trader_manager(player)
+            first_trader.trader_manager(player)
         elif choose == 2:
             player.player_manager()
         elif choose == 3:
@@ -145,10 +146,11 @@ for dungen in all_dungeon:
                 break
         elif choose == 4:
             time_nosleep = time_nosleeps(time_nosleep)
-        if dungen.passed == True:
+        elif dungen.passed == True:
             break
         else :
             print('непонял')
+if is_alive == True:
     print(f'Вы прошли уровень {dungen.name},\nтак держать!\n вы нашли 100 монет')
     player.money += 100
     print(f'теперь у вас {player.money}')

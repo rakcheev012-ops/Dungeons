@@ -83,22 +83,26 @@ class Armor():
         return f'{self.name},  cost = {self.cost}, resist = {self.resist}, hp = {self.hp}'
 
 class Heal_potion():
-    def __init__(self, name, hp, cost):
+    def __init__(self, name, hp_reg, cost):
         self.name = name
-        self.hp = hp
+        self.hp_reg = hp_reg
         self.cost = cost
+    
+    def show_characteristics(self):
+        return f'{self.name}, cost = {self.cost}, hp regeneration = {self.hp_reg}'
+        
 
 class Heal_potion_small(Heal_potion):
-    def __init__(self, name = 'Heal potion small', hp = 25, cost = 20):
-        super().__init__(name, hp, cost)
+    def __init__(self, name = 'Heal potion small', hp_reg = 25, cost = 20):
+        super().__init__(name, hp_reg, cost)
 
 class Heal_potion_medium(Heal_potion):
-    def __init__(self, name = 'Heal potion medium', hp = 75, cost = 60):
-        super().__init__(name, hp, cost)
+    def __init__(self, name = 'Heal potion medium', hp_reg = 75, cost = 60):
+        super().__init__(name, hp_reg, cost)
 
 class Heal_potion_big(Heal_potion): 
-    def __init__(self, name = 'Heal potion big', hp = 150, cost = 120):
-        super().__init__(name, hp, cost)
+    def __init__(self, name = 'Heal potion big', hp_reg = 150, cost = 120):
+        super().__init__(name, hp_reg, cost)
 
 class Room():
     def __init__(self, enemy, money,):
@@ -203,10 +207,22 @@ class Trader():
             print('У торговца не хватает денег')
             
 
-    def hpreg(self):
-        small = 0
-        medium = 0
-        big = 0
-        heals = [small, medium, big]
+    def heal_potion_res(self):
+        small = 3
+        medium = 2
+        big = 1
         for i in self.trader_inventory:
-            pass
+            if type(i) == Heal_potion_small:
+                small -= 1
+            elif type(i) == Heal_potion_medium:
+                medium -= 1
+            elif type(i) == Heal_potion_big:
+                big -= 1
+        print(f'{small}\n{medium}\n{big}')
+
+        for i in range(small):
+            self.trader_inventory.append(self.heal_potion_small)
+        for i in range(medium):
+            self.trader_inventory.append(self.heal_potion_medium)
+        for i in range(big):
+            self.trader_inventory.append(self.heal_potion_medium)
